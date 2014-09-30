@@ -10,8 +10,10 @@ library(rgeos)
 tmp.stn.dir <- "//deqhq1/tmdl/TMDL_WR/MidCoast/GIS/BacteriaTMDL/Beaches/Layers"
 tmp.BEACON.dir <- "//deqhq1/tmdl/TMDL_WR/MidCoast/GIS/BacteriaTMDL/Beaches/EPA_BEACON"
 
-## shapefiles
+## shapefiles and dbf files
 tmp.stn.shp <- "stations_in_group_areas"
+tmp.BEACON.beach.ext.shp <- "rad_beach_l"
+tmp.BEACON.dbf <-"beach_attributes.dbf"
 
 
 
@@ -24,16 +26,21 @@ tmp.sp.stn@data <- data.frame(site=as.character(tmp.sp.stn@data[,grep("site",nam
 
 
 ## get USEPA BEACON spatial data
+tmp.BEACON.shp.dir <- dwnldUnzpBEACONsp(tmp.BEACON.dir)
+## linear extents of all beaches in BEACON data set
+tmp.sp.BEACON.all <- readShapeLines(fn=paste0(tmp.BEACON.shp.dir,"/",tmp.BEACON.beach.ext.shp), proj4string = CRS("+init=epsg:4269"))
+## get beaches identified as being in Oregon
+tmp.sp.BEACON.OR <- tmp.sp.BEACON.all[grep("^OR",tmp.sp.BEACON.all@data$SRC_FEATID),]
+## clean-up
+rm(tmp.sp.BEACON.all)
 
 
-## get dbf file for beach attributes
-tmp.dbf <-"beach_attributes.dbf"
-tmp.beach.attr <- read.dbf(file=paste0(tmp.dir,"/",tmp.dbf))
+## get BEACONS dbf file for beach attributes
+tmp.BEACON.attr.all <- read.dbf(file=paste0(tmp.BEACON.shp.dir,"/",tmp.BEACON.dbf))
 ## get beaches in OR
-tmp.beach.attr.or <- tmp.beach.attr[tmp.beach.attr$BEACH_STAT == "OR",]
-unique(as.character(tmp.beach.attr.or$BEACH_ID))
-tmp.sp.beach.ext.or <- tmp.sp.beach.ext[grep("^OR",tmp.sp.beach.ext$SRC_FEATID), ]
-
+tmp.BEACON.attr.or <- tmp.BEACON.attr.all[tmp.BEACON.attr.all$BEACH_STAT == "OR",]
+## clean up
+rm(tmp.BEACON.attr.all)
 
 ## google CRS is "+init=epsg:4326"
 tmp.sp.stn.on.beach.ext.KML <- spTransform(

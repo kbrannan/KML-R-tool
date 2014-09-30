@@ -7,11 +7,17 @@ dwnldUnzpBEACONsp <- function(dir.sp = "//deqhq1/tmdl/TMDL_WR/MidCoast/GIS/Bacte
   ## http://www.epa.gov/waters/data/rad_beach_20140804_shp.zip
   ## the data is dowloaded and unziped to the directory specified by the user (dir.sp)
   ## the downloaded zipfile is saved
+  ## dir.BEACON.shp <- the sub-folder under dir.sp where the shapefiles from BEACON are located
 
   
   ## get beaches in OR
   chr.destfile <- paste0(dir.sp,"/","rad_beach_20140804_shp.zip")
   download.file(url="http://www.epa.gov/waters/data/rad_beach_20140804_shp.zip", destfile = chr.destfile)
   unzip(zipfile=chr.destfile,exdir=dir.sp)
+  
+  ## get folder for the shapefiles
+  ## commands assume that the BEACON shalefile folder will have the longest name
+  dir.BEACON.shp <- names(sort(sapply(X=list.dirs(path=dir.sp, full.names=TRUE,recursive=TRUE),FUN=nchar),decreasing=TRUE)[1])
+  return(dir.BEACON.shp)
 }
   
