@@ -55,6 +55,11 @@ tmp.df.dist.stn.beach.line <- lineardistance.kmb.sp(tmp.sp.stn,tmp.sp.BEACON.OR.
 tmp.sp.stn.snap <- snapPointsToLine.sp.kmb(tmp.sp.stn,tmp.sp.BEACON.OR.mc,maxDist=NA)
 
 
+##
+## tranform to CRS used by Google Earth ("+init=epsg:4326")
+tmp.sp.stn.GE <- spTrans
+
+
 
 kml(tmp.sp.stn.KML,labels=site, size=10, scale=1)
 plotKML(tmp.sp.stn.KML,file="tmp.sp.stn.KML.kml")

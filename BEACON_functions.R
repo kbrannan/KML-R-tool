@@ -23,7 +23,7 @@ dwnldUnzpBEACON.kmb.sp <- function(dir.sp = "//deqhq1/tmdl/TMDL_WR/MidCoast/GIS/
 
 subsetBasedOnExtent.kmb.sp <-function(sp.select.ext,sp.select.from) {
   ##
-  ## put both sp in CRS used by gogle earth of "+init=epsg:4326"
+  ## put both sp in CRS used by google earth of "+init=epsg:4326"
   sp.select.ext.KML <- spTransform(sp.select.ext,CRS("+init=epsg:4326"))
   sp.select.from.KML <- spTransform(sp.select.from,CRS("+init=epsg:4326"))
   ##
