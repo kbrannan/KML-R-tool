@@ -5,6 +5,7 @@ library(foreign)
 library(rgdal)
 library(plotKML)
 library(rgeos)
+library(brew)
 
 ## folders
 tmp.stn.dir <- "//deqhq1/tmdl/TMDL_WR/MidCoast/GIS/BacteriaTMDL/Beaches/Layers"
@@ -57,13 +58,19 @@ tmp.sp.stn.snap <- snapPointsToLine.sp.kmb(tmp.sp.stn,tmp.sp.BEACON.OR.mc,maxDis
 
 ##
 ## tranform to CRS used by Google Earth ("+init=epsg:4326")
-tmp.sp.stn.GE <- spTrans
+tmp.sp.stn.GE <- spTransform(tmp.sp.stn,CRS("+init=epsg:4326"))
+tmp.sp.stn.snap.GE <- spTransform(tmp.sp.stn.snap,CRS("+init=epsg:4326"))
+tmp.sp.BEACON.OR.mc.GE <- spTransform(tmp.sp.BEACON.OR.mc,CRS("+init=epsg:4326"))
+
+##
+## view compare orginial and snap sample locations
+plotKML(tmp.sp.stn.GE)
+plotKML(tmp.sp.stn.snap.GE)
+plotKML(tmp.sp.BEACON.OR.mc.GE)
 
 
+brew(file="stn_placemark_brew.kmlt",output="stn_placemark_brew.kml")
 
-kml(tmp.sp.stn.KML,labels=site, size=10, scale=1)
-plotKML(tmp.sp.stn.KML,file="tmp.sp.stn.KML.kml")
-plotKML(tmp.sp.stn.KML)
 
 
 plotKML(tmp.sp.beach.ext.or.mc.KML)

@@ -28,7 +28,9 @@ subsetBasedOnExtent.kmb.sp <-function(sp.select.ext,sp.select.from) {
   sp.select.from.KML <- spTransform(sp.select.from,CRS("+init=epsg:4326"))
   ##
   ## create a polygon from the bounding box of the extent layer to use for selecting
-  select.bbox <- cbind(floor(bbox(sp.select.ext.KML)[,1]),ceiling(bbox(sp.select.ext.KML)[,2]))
+  #select.bbox <- cbind(floor(bbox(sp.select.ext.KML)[,1]),ceiling(bbox(sp.select.ext.KML)[,2]))
+  #select.bbox <- cbind((bbox(sp.select.ext.KML)[,1]),(bbox(sp.select.ext.KML)[,2]))
+  select.bbox <- cbind(floor(100*bbox(sp.select.ext.KML)[,1])/100,ceiling(100*bbox(sp.select.ext.KML)[,2])/100)
   select.rec <- rbind(c(select.bbox[1,1],select.bbox[2,2]),c(select.bbox[1,2],select.bbox[2,2]),c(select.bbox[1,2],select.bbox[2,1]),c(select.bbox[1,1],select.bbox[2,1]),c(select.bbox[1,1],select.bbox[2,2]))
   select.sp.rec <- SpatialPolygons(list(Polygons(list(Polygon(select.rec)),1)))
   proj4string(select.sp.rec) <- CRS("+init=epsg:4326")
