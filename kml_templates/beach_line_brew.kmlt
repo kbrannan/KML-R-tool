@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2">
+	<Document>
+		<name>Sample Locations</name>
+		<Style id="sample">
+			<IconStyle>
+				<Icon>
+					<href>http://maps.google.com/mapfiles/kml/paddle/purple-square-lv.png</href>
+				</Icon>
+			</IconStyle>
+		</Style>
+		<Style id="highlightPlacemark">
+		  <IconStyle>
+			<Icon>
+			  <href>http://maps.google.com/mapfiles/kml/paddle/purple-square-lv.png</href>
+			</Icon>
+		  </IconStyle>
+		</Style>
+		<Style id="normalPlacemark">
+		  <IconStyle>
+			<Icon>
+			  <href>http://maps.google.com/mapfiles/kml/paddle/wht-blank.png</href>
+			</Icon>
+		  </IconStyle>
+		</Style>
+		<StyleMap id="exampleStyleMap">
+		  <Pair>
+			<key>normal</key>
+			<styleUrl>#normalPlacemark</styleUrl>
+		  </Pair>
+		  <Pair>
+			<key>highlight</key>
+			<styleUrl>#highlightPlacemark</styleUrl>
+		  </Pair>
+		</StyleMap>
+		<Folder>
+			<name>Sample Location</name>
+			<open>1</open>
+			<description>
+				Original samplelocations
+			</description>
+			<% for(ii in 1:10){ %>
+				<Placemark>
+					<styleUrl>#exampleStyleMap</styleUrl>
+					<Name><%=tmp.sp.stn.GE@data$site[i]%></Name>
+					<Point>
+						<extrude>1</extrude>
+						<altitudeMode>relativeToGround</altitudeMode>
+						<coordinates><%=tmp.sp.stn.GE@coords[ii,1]%>,<%=tmp.sp.stn.GE@coords[ii,2]%>,0</coordinates>
+					</Point>
+				</Placemark>
+			<% } %>
+		</Folder>
+	</Document>
+</kml>
