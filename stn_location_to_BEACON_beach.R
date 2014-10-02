@@ -10,6 +10,7 @@ library(brew)
 ## folders
 tmp.stn.dir <- "//deqhq1/tmdl/TMDL_WR/MidCoast/GIS/BacteriaTMDL/Beaches/Layers"
 tmp.BEACON.dir <- "//deqhq1/tmdl/TMDL_WR/MidCoast/GIS/BacteriaTMDL/Beaches/EPA_BEACON"
+tmp.BEACON.shp.dir <- paste0(tmp.BEACON.dir,"/rad_beach_2014080_shp/rad_beach_20140804")
 
 ## files
 tmp.stn.csv <- "stn_loc.csv"
@@ -63,13 +64,18 @@ tmp.sp.stn.snap.GE <- spTransform(tmp.sp.stn.snap,CRS("+init=epsg:4326"))
 tmp.sp.BEACON.OR.mc.GE <- spTransform(tmp.sp.BEACON.OR.mc,CRS("+init=epsg:4326"))
 
 ##
+## write KML files for Google Earth
+brew(file="./kml_templates/stn_placemark_brew.kmlt",output="stn_placemark_brew.kml")
+
+
+
+
+##
 ## view compare orginial and snap sample locations
 plotKML(tmp.sp.stn.GE)
 plotKML(tmp.sp.stn.snap.GE)
 plotKML(tmp.sp.BEACON.OR.mc.GE)
 
-
-brew(file="stn_placemark_brew.kmlt",output="stn_placemark_brew.kml")
 
 
 
