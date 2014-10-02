@@ -2,7 +2,7 @@
 <kml xmlns="http://www.opengis.net/kml/2.2">
 	<Document>
 		<name>Beach Sample Locations</name>
-		<Style id="stn">
+		<Style id="stn_normal">
 			<IconStyle>
 				<scale>1.3</scale>
 				<Icon>
@@ -10,12 +10,46 @@
 				</Icon>
 			</IconStyle>
 		</Style>
+		<Style id="stn_highlight">
+			<IconStyle>
+				<scale>1.5</scale>
+				<Icon>
+					<href>http://maps.google.com/mapfiles/kml/paddle/ylw-blank.png</href>
+				</Icon>
+			</IconStyle>
+			<LabelStyle>
+				<scale>1.5</scale>
+			</LabelStyle>
+			<BalloonStyle>
+			  <text>
+				<![CDATA[
+				  Sample location $[name]
+				  Date source is $[datasource]
+				]]>
+			  </text>
+    </BalloonStyle>
+		</Style>
+        <StyleMap id="stnsHighlight">
+          <Pair>
+            <key>normal</key>
+            <styleUrl>#stn_normal</styleUrl>
+          </Pair>
+          <Pair>
+            <key>highlight</key>
+            <styleUrl>#stn_highlight</styleUrl>
+          </Pair>
+        </StyleMap>
 		<Folder>
 			<name>Sample Location</name>
 			<description> Original sample locations</description><% for(ii in 1:25){ %>
 				<Placemark>
-					<styleUrl>#stn</styleUrl>
+					<styleUrl>#stnsHighlight</styleUrl>
 					<name><%=tmp.sp.stn.GE@data$site[ii]%></name>
+					<ExtendedData>
+						<Data name="datasource">
+							<value><%=as.character(tmp.sp.stn.GE@data$data_sourc[ii])%></value>
+						</Data>
+					</ExtendedData>
 					<Point>
 						<coordinates><%=tmp.sp.stn.GE@coords[ii,1]%>,<%=tmp.sp.stn.GE@coords[ii,2],0%></coordinates>
 					</Point>
