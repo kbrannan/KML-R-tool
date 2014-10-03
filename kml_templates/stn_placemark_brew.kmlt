@@ -21,13 +21,14 @@
 				<scale>1.5</scale>
 			</LabelStyle>
 			<BalloonStyle>
-			  <text>
-				<![CDATA[
-				  Sample location $[name]
-				  Date source is $[datasource]
-				]]>
-			  </text>
-    </BalloonStyle>
+				<text>
+					<![CDATA[
+						Sample location $[name]
+						Date source is $[datasource] <br>
+						<img src= "https://s3-us-west-2.amazonaws.com/midcoastbeaches/ldc_st34115.png">
+					]]>
+				</text>
+			</BalloonStyle>
 		</Style>
         <StyleMap id="stnsHighlight">
           <Pair>
