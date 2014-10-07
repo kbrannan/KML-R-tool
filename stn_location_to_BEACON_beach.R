@@ -10,8 +10,10 @@ library(brew)
 ## folders
 tmp.stn.dir <- "//deqhq1/tmdl/TMDL_WR/MidCoast/GIS/BacteriaTMDL/Beaches/Layers"
 tmp.BEACON.dir <- "//deqhq1/tmdl/TMDL_WR/MidCoast/GIS/BacteriaTMDL/Beaches/EPA_BEACON"
-tmp.BEACON.shp.dir <- paste0(tmp.BEACON.dir,"/rad_beach_2014080_shp/rad_beach_20140804")
+tmp.BEACON.shp.dir <- paste0(tmp.BEACON.dir,"/rad_beach_20140804_shp/rad_beach_20140804")
 
+
+tmp.BEACON.shp.dir == junk
 ## files
 tmp.stn.csv <- "stn_loc.csv"
 tmp.BEACON.beach.ext.shp <- "rad_beach_l"
@@ -66,8 +68,7 @@ tmp.sp.BEACON.OR.mc.GE <- spTransform(tmp.sp.BEACON.OR.mc,CRS("+init=epsg:4326")
 ##
 ## write KML files for Google Earth
 brew(file="./kml_templates/stn_placemark_brew.kmlt",output="stn_placemark_brew.kml")
-
-
+brew(file="./kml_templates/beach_line_brew.kmlt",output="beach_line_brew.kml")
 
 
 ##
@@ -77,6 +78,27 @@ plotKML(tmp.sp.stn.snap.GE)
 plotKML(tmp.sp.BEACON.OR.mc.GE)
 
 
+
+
+##
+## scratch space
+tmp.sp.BEACON.OR.mc.GE@lines[[1]]@Lines[[1]]@coords
+
+paste(tmp.sp.BEACON.OR.mc.GE@lines[[1]]@Lines[[1]]@coords[,1],tmp.sp.BEACON.OR.mc.GE@lines[[1]]@Lines[[1]]@coords[,2],"0",collapse=",")
+
+ii <- 5
+for(ii in 1:5) {
+  junk<-data.frame(x=tmp.sp.BEACON.OR.mc.GE@lines[[ii]]@Lines[[1]]@coords[,1],y=tmp.sp.BEACON.OR.mc.GE@lines[[ii]]@Lines[[1]]@coords[,2],z=0)
+  k <- " "
+  for(jj in 1:length(junk[,1])) k <- paste(k,paste(junk[jj,1:3],collapse=","),sep=",")
+  print(substr(k,3,nchar(k)))
+}
+
+
+
+paste(paste(junk[1,1:3],collapse=","),paste(junk[2,1:3],collapse=","),sep=",")
+
+paste(tmp.sp.BEACON.OR.mc.GE@lines[[ii]]@Lines[[1]]@coords[,1:2],"0",collapse=",")
 
 
 plotKML(tmp.sp.beach.ext.or.mc.KML)

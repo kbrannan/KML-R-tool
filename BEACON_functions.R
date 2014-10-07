@@ -79,4 +79,9 @@ snapPointsToLine.sp.kmb <- function(sp.points,sp.lines,maxDist=NA) {
   return(sp.points.snap)
 }
 
-  
+lineCoordsString <- function(cur.lines) {
+  df.coords<-data.frame(x=cur.lines@Lines[[1]]@coords[,1],y=cur.lines@Lines[[1]]@coords[,2],z=0)
+  k <- " "
+  for(ii in 1:length(df.coords[,1])) k <- paste(k,paste(df.coords[ii,1:3],collapse=","),sep=",")
+  return(substr(k,3,nchar(k)))
+}

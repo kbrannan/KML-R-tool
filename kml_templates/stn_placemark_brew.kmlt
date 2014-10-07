@@ -18,17 +18,8 @@
 				</Icon>
 			</IconStyle>
 			<LabelStyle>
-				<scale>1.5</scale>
+				<scale>0.90</scale>
 			</LabelStyle>
-			<BalloonStyle>
-				<text>
-					<![CDATA[
-						Sample location $[name]
-						Date source is $[datasource] <br>
-						<img src= "https://s3-us-west-2.amazonaws.com/midcoastbeaches/ldc_st34115.png">
-					]]>
-				</text>
-			</BalloonStyle>
 		</Style>
         <StyleMap id="stnsHighlight">
           <Pair>
@@ -42,10 +33,13 @@
         </StyleMap>
 		<Folder>
 			<name>Sample Location</name>
-			<description> Original sample locations</description><% for(ii in 1:25){ %>
+			<description> Original sample locations</description><% for(ii in 1:length(tmp.sp.stn.GE@data$data_sourc)){ %>
 				<Placemark>
 					<styleUrl>#stnsHighlight</styleUrl>
 					<name><%=tmp.sp.stn.GE@data$site[ii]%></name>
+					<Balloon>
+						<href>https://s3-us-west-2.amazonaws.com/midcoastbeaches/BallonBox_Draft00KMB201410070932.html</href>
+					</Balloon>
 					<ExtendedData>
 						<Data name="datasource">
 							<value><%=as.character(tmp.sp.stn.GE@data$data_sourc[ii])%></value>
