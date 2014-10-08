@@ -42,6 +42,16 @@ subsetBasedOnExtent.kmb.sp <-function(sp.select.ext,sp.select.from) {
   return(selected.sp)
 }
 
+line.mid.points.kmb.sp <- function(sp.lines) {
+  
+  ## functions do not work for coords in geographic units 
+  ## transform to Oregon Lambert projection (+init=epsg:2992)
+  sp.lines.ft  <- spTransform(sp.lines ,CRS("+init=epsg:2992"))
+  sp.mid.points.ft <- SpatialLinesMidPoints(sp.lines.ft)
+  sp.mid.points <- spTransform(sp.mid.points.ft,CRS(proj4string(sp.lines)))
+  return(sp.mid.points)
+}
+
 lineardistance.kmb.sp <- function(sp.points,sp.lines) {
   
   ## functions do not work for coords in geographic units 
@@ -84,4 +94,10 @@ lineCoordsString <- function(cur.lines) {
   k <- " "
   for(ii in 1:length(df.coords[,1])) k <- paste(k,paste(df.coords[ii,1:3],collapse=","),sep=",")
   return(substr(k,3,nchar(k)))
+}
+
+simpleCap <- function(x) {
+  s <- strsplit(x, " ")[[1]]
+  return(paste(toupper(substring(s, 1, 1)), tolower(substring(s, 2)),sep = "", collapse = " "))
+  
 }
