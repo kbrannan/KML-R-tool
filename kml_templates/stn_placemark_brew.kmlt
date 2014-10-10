@@ -4,7 +4,7 @@
 		<name>Beach Sample Locations</name>
 		<Style id="stn_normal">
 			<IconStyle>
-				<scale>1.3</scale>
+				<scale>0.9</scale>
 				<Icon>
 					<href>http://maps.google.com/mapfiles/kml/paddle/grn-blank.png</href>
 				</Icon>
@@ -17,8 +17,12 @@
 					<href>http://maps.google.com/mapfiles/kml/paddle/ylw-blank.png</href>
 				</Icon>
 			</IconStyle>
+			<BalloonStyle>
+				<bgColor>#FFF0F0</bgColor>
+				<text>$[description]</text>
+			</BalloonStyle>
 			<LabelStyle>
-				<scale>0.90</scale>
+				<scale>1.1</scale>
 			</LabelStyle>
 		</Style>
         <StyleMap id="stnsHighlight">
@@ -37,14 +41,18 @@
 				<Placemark>
 					<styleUrl>#stnsHighlight</styleUrl>
 					<name><%=tmp.sp.stn.GE@data$site[ii]%></name>
-					<Balloon>
-						<href>https://s3-us-west-2.amazonaws.com/midcoastbeaches/BallonBox_Draft00KMB201410070932.html</href>
-					</Balloon>
 					<ExtendedData>
+						<Data name="locationid">
+							<value><%=as.character(tmp.sp.stn.GE@data$site[ii])%></value>
+						</Data>
+
 						<Data name="datasource">
 							<value><%=as.character(tmp.sp.stn.GE@data$data_sourc[ii])%></value>
 						</Data>
 					</ExtendedData>
+					<description><![CDATA[
+						<body style="margin:0px 0px 0px 0px;overflow:auto;background:#FFFFFF;">
+					]]></description>
 					<Point>
 						<coordinates><%=tmp.sp.stn.GE@coords[ii,1]%>,<%=tmp.sp.stn.GE@coords[ii,2],0%></coordinates>
 					</Point>

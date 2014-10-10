@@ -8,6 +8,8 @@ library(rgeos)
 library(brew)
 library(RColorBrewer)
 
+## my-functions
+source("BEACON_functions.R")
 
 ## folders
 tmp.stn.dir <- "//deqhq1/tmdl/TMDL_WR/MidCoast/GIS/BacteriaTMDL/Beaches/Layers"
@@ -74,17 +76,19 @@ tmp.sp.stn.snap.GE <- spTransform(tmp.sp.stn.snap,CRS("+init=epsg:4326"))
 tmp.sp.BEACON.OR.mc.add.attr.GE <- spTransform(tmp.sp.BEACON.OR.mc.add.attr,CRS("+init=epsg:4326"))
 tmp.sp.BEACON.OR.mc.add.attr.mdpnts.GE <- spTransform(tmp.sp.BEACON.OR.mc.add.attr.mdpnts,CRS("+init=epsg:4326"))
 
-junk.hold <- tmp.sp.BEACON.OR.mc.add.attr.GE
-tmp.sp.BEACON.OR.mc.add.attr.GE <- gLineMerge(tmp.sp.BEACON.OR.mc.add.attr.GE,byid=TRUE,id="BEACH_NAME")
-
-
 ##
 ##
 ## generate colors for kml elements
 ## lines
 line.colors <- hex2kml(heat.colors((length(tmp.sp.BEACON.OR.mc.add.attr.GE@data[,1])),alpha=0.65))
 
-
+##
+## delete from here
+## save for quick access during development
+rdata <- "kml_data.RData"
+if(length(ls(all = TRUE)) > 2) save(list = ls(all = TRUE),file=rdata)
+if(length(ls(all = TRUE)) < 2) load(file=rdata)
+## delete to here
 
 ##
 ## write KML files for Google Earth
