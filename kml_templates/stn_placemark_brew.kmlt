@@ -18,13 +18,14 @@
 				</Icon>
 			</IconStyle>
 <BalloonStyle>
-<bgColor>ffE0F2F7</bgColor>
+<bgColor>FFE0F2F7</bgColor>
 <text> <![CDATA[
-<b>Example extended data template</b>
-<table border="1" >
-<tr><td>Company Name</td></tr>
-<tr><td><i>$[Company_Name]</i></td></tr>
+<b>Location id: $[site] <br> Data Source: $[data_source]</b>
+<table border="1" width="600" aling="left">
+<tr align="ceter"><th>Begin Date<th>End Date</th><th>Number of Samples</th><th>At or Above Criteria <sup>*</sup></th></tr>
+<tr align="center"><td>$[begin_date]</td><td>$[end_date]</td><td>$[sample_count]</td><td>$[at_above_crit]</td></tr>
 </table>
+<b><sup>*</sup> Criterion used 158 <sup>org</sup>/<sub>100ml</sub> Enterroccous</b>
 ]]></text>
 </BalloonStyle>
 			<LabelStyle>
@@ -48,7 +49,24 @@
 					<styleUrl>#stnsHighlight</styleUrl>
 					<name><%=tmp.sp.stn.GE@data$site[ii]%></name>
 <ExtendedData>
-<Data name="Company_Name"><value>Google Incorporated</value></Data>
+<Data name="site">
+<value><%=as.character(tmp.sp.stn.GE@data$site[ii])%></value>
+</Data>
+<Data name="data_source">
+<value><%=as.character(tmp.sp.stn.GE@data$data_sourc[ii])%></value>
+</Data>
+<Data name="begin_date">
+<value>2014-10-10</value>
+</Data>
+<Data name="end_date">
+<value>2014-10-11</value>
+</Data>
+<Data name="sample_count">
+<value>1231</value>
+</Data>
+<Data name="at_above_crit">
+<value>26</value>
+</Data>
 </ExtendedData>
 					<Point>
 						<coordinates><%=tmp.sp.stn.GE@coords[ii,1]%>,<%=tmp.sp.stn.GE@coords[ii,2],0%></coordinates>
