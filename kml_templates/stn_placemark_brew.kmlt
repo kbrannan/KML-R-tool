@@ -119,7 +119,7 @@ left:12px;top:12px;width:172px;height:24px'>
   <div v:shape="_x0000_s1025" style='padding:2.88pt 2.88pt 2.88pt 2.88pt'
   class=shape>
   <p class=MsoNormal><span lang=en-US style='font-size:11.0pt;line-height:113%;
-  font-family:Arial;font-weight:bold;language:en-US'>Location ID 123456</span></p>
+  font-family:Arial;font-weight:bold;language:en-US'>Location ID $[site]</span></p>
   </div>
   <![if !vml]></td>
  </tr>
@@ -150,7 +150,7 @@ left:233px;top:12px;width:275px;height:24px'>
   <div v:shape="_x0000_s1026" style='padding:2.88pt 2.88pt 2.88pt 2.88pt'
   class=shape>
   <p class=MsoNormal><span lang=en-US style='font-size:11.0pt;line-height:113%;
-  font-family:Arial;font-weight:bold;language:en-US'>Data Source  123456</span></p>
+  font-family:Arial;font-weight:bold;language:en-US'>Data Source  $[data_source]</span></p>
   </div>
   <![if !vml]></td>
  </tr>
@@ -291,28 +291,28 @@ border=0 width=51 height=117 src="https://s3-us-west-2.amazonaws.com/midcoastbea
   padding-bottom:2.88pt;background:white;border:solid black 1.0pt'>
   <p class=MsoNormal style='text-align:center;margin-bottom:0pt;text-align:
   center'><span lang=en-US style='font-size:11.0pt;line-height:113%;font-family:
-  Arial;language:en-US'><span dir=ltr></span>2014-10-09</span></p>
+  Arial;language:en-US'><span dir=ltr></span>$[begin_date]</span></p>
   </td>
   <td width=108 height=28 valign=Top bgcolor=white style='width:81.0pt;
   height:21.3668pt;padding-left:2.88pt;padding-right:2.88pt;padding-top:2.88pt;
   padding-bottom:2.88pt;background:white;border:solid black 1.0pt'>
   <p class=MsoNormal style='text-align:center;margin-bottom:0pt;text-align:
   center'><span lang=en-US style='font-size:11.0pt;line-height:113%;font-family:
-  Arial;language:en-US'><span dir=ltr></span>2010-10-10</span></p>
+  Arial;language:en-US'><span dir=ltr></span>[end_date]</span></p>
   </td>
   <td width=104 height=28 valign=Top bgcolor=white style='width:78.0pt;
   height:21.3668pt;padding-left:2.88pt;padding-right:2.88pt;padding-top:2.88pt;
   padding-bottom:2.88pt;background:white;border:solid black 1.0pt'>
   <p class=MsoNormal style='text-align:center;margin-bottom:0pt;text-align:
   center'><span lang=en-US style='font-size:11.0pt;line-height:113%;font-family:
-  Arial;language:en-US'><span dir=ltr></span>1243</span></p>
+  Arial;language:en-US'><span dir=ltr></span>$[sample_count]</span></p>
   </td>
   <td width=176 height=28 valign=Top bgcolor=white style='width:132.0pt;
   height:21.3668pt;padding-left:2.88pt;padding-right:2.88pt;padding-top:2.88pt;
   padding-bottom:2.88pt;background:white;border:solid black 1.0pt'>
   <p class=MsoNormal style='text-align:center;margin-bottom:0pt;text-align:
   center'><span lang=en-US style='font-size:11.0pt;line-height:113%;font-family:
-  Arial;language:en-US'><span dir=ltr></span>216</span></p>
+  Arial;language:en-US'><span dir=ltr></span>$[at_above_crit]</span></p>
   </td>
  </tr>
 </table>
