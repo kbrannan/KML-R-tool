@@ -17,10 +17,16 @@
 					<href>http://maps.google.com/mapfiles/kml/paddle/ylw-blank.png</href>
 				</Icon>
 			</IconStyle>
-			<BalloonStyle>
-				<bgColor>#FFF0F0</bgColor>
-				<text>$[description]</text>
-			</BalloonStyle>
+<BalloonStyle>
+<bgColor>ffE0F2F7</bgColor>
+<text> <![CDATA[
+<b>Example extended data template</b>
+<table border="1" >
+<tr><td>Company Name</td></tr>
+<tr><td><i>$[Company_Name]</i></td></tr>
+</table>
+]]></text>
+</BalloonStyle>
 			<LabelStyle>
 				<scale>1.1</scale>
 			</LabelStyle>
@@ -41,18 +47,9 @@
 				<Placemark>
 					<styleUrl>#stnsHighlight</styleUrl>
 					<name><%=tmp.sp.stn.GE@data$site[ii]%></name>
-					<ExtendedData>
-						<Data name="locationid">
-							<value><%=as.character(tmp.sp.stn.GE@data$site[ii])%></value>
-						</Data>
-
-						<Data name="datasource">
-							<value><%=as.character(tmp.sp.stn.GE@data$data_sourc[ii])%></value>
-						</Data>
-					</ExtendedData>
-					<description><![CDATA[
-						<body style="margin:0px 0px 0px 0px;overflow:auto;background:#FFFFFF;">
-					]]></description>
+<ExtendedData>
+<Data name="Company_Name"><value>Google Incorporated</value></Data>
+</ExtendedData>
 					<Point>
 						<coordinates><%=tmp.sp.stn.GE@coords[ii,1]%>,<%=tmp.sp.stn.GE@coords[ii,2],0%></coordinates>
 					</Point>

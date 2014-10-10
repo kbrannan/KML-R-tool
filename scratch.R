@@ -6,28 +6,24 @@ library(rgdal)
 library(plotKML)
 library(rgeos)
 
+## folders
+tmp.stn.dir <- "//deqhq1/tmdl/TMDL_WR/MidCoast/GIS/BacteriaTMDL/Beaches/Layers"
+tmp.BEACON.dir <- "//deqhq1/tmdl/TMDL_WR/MidCoast/GIS/BacteriaTMDL/Beaches/EPA_BEACON"
+
+## shapefiles
+tmp.stn.shp <- "stations_in_group_areas"
+
+
+
 ##
 ## get the sampling location data
 ## Get stations shapefile
-tmp.dir <- "//deqhq1/tmdl/TMDL_WR/MidCoast/GIS/BacteriaTMDL/Beaches/Layers"
-tmp.shp <- "stations_in_group_areas"
-tmp.sp.stn <- readShapePoints(paste0(tmp.dir,"/",tmp.shp), proj4string = CRS("+proj=longlat +datum=NAD83"), verbose = FALSE,repair=FALSE)
-unique(tmp.sp.stn$site)
-rm(tmp.dir,tmp.shp)
+tmp.sp.stn <- readShapePoints(paste0(tmp.stn.dir,"/",tmp.stn.shp), proj4string = CRS("+proj=longlat +datum=NAD83"), verbose = FALSE,repair=FALSE)
+## doa a little cleaning and and reformating
+tmp.sp.stn@data <- data.frame(site=as.character(tmp.sp.stn@data[,grep("site",names(tmp.sp.stn@data))]), data_sourc=tmp.sp.stn@data[,grep("data_sourc",names(tmp.sp.stn@data))], lat=tmp.sp.stn@data[,grep("lat",names(tmp.sp.stn@data))],lon=tmp.sp.stn@data[,grep("lon",names(tmp.sp.stn@data))])
 
 
-## get EPA BEACON beach extents
-## downloaded shapefiles on 2014-09-23 from USEPA Geospatial downloads at
-## http://water.epa.gov/scitech/datait/tools/waters/data/downloads.cfm#BEACH Datasets
-## direct link address for shapefiles is:
-## http://www.epa.gov/waters/data/rad_beach_20140804_shp.zip
-## Get beach extent shapefile
-tmp.dir <- "//deqhq1/tmdl/TMDL_WR/MidCoast/GIS/BacteriaTMDL/Beaches/EPA_Beach_Data/rad_beach_20140804_shp/rad_beach_20140804"
-tmp.shp <- "rad_beach_l"
-tmp.sp.beach.ext <- readShapeLines(paste0(tmp.dir,"/",tmp.shp), proj4string = CRS("+proj=longlat +datum=NAD83"), verbose = FALSE,repair=FALSE)
-## get beaches in OR
-tmp.sp.beach.ext.or <- tmp.sp.beach.ext[grep("^OR",tmp.sp.beach.ext$SRC_FEATID), ]
-
+## get USEPA BEACON spatial data
 
 
 ## get dbf file for beach attributes
