@@ -19,7 +19,7 @@ df.data <- df.data[,-1*grep("group",names(df.data))]
 ##
 # change and add information
 df.data[grep("^ent$",df.data[,"parameter"]),"parameter"] <- "enterococcus"
-df.data <-data.frame(df.data[,1:grep("value",names(df.data))], units="orgs/100ml", df.data[,grep("value",names(df.data)):length(names(df.data))], stringsAsFactors=FALSE)
+df.data <-data.frame(df.data[,1:grep("value",names(df.data))-1], units="orgs/100ml", df.data[,grep("value",names(df.data)):length(names(df.data))], stringsAsFactors=FALSE)
 
 ##
 ## write data files in csv format
