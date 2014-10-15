@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=windows-1252">
+<style>
+table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+th {
+    padding: 10px;
+}
+td {
+	text-align:center;
+	padding: 5px;
+}
+</style>
+</head>
+<body style="font-family:verdana;background-color:#F3FBFF">
+<h1 style="line-height: 100%">Oregon DEQ</h1>
+<h2 style="line-height: 100%">Mid-Coast Bacteria TMDLs for Beaches</h2>
+<h3 style="line-height: 100%"> Sample location ID: <%=as.character(tmp.data$site[ii])%> <br>
+Data Source: <%=as.character(tmp.data$data.source[ii])%> </h3>
+<p style="line-height: 70%"><b>Descriptive Statistics Tables</b></p>
+<table style=100%>
+  <tr>
+    <th>Year</th>
+    <th>N</th>
+    <th>Max<br>(<sup>#</sup>/<sub>100 ml</sub>)</th>		
+    <th>Median<br>(<sup>#</sup>/<sub>100 ml</sub>)</th>
+	<th>N<br>above criterion<sup>*</sup></th>
+    <th>Date of First Sample</th>
+    <th>Date of Last Sample</th>
+  </tr><%for(kk in 1:length(tmp.stats$year)) {%>
+  <tr>
+    <td><%=as.character(tmp.stats$year[kk])%></td>
+    <td><%=as.character(tmp.stats$N[kk])%></td>
+    <td><%=as.character(tmp.stats$max[kk])%></td>		
+    <td><%=as.character(tmp.stats$median[kk])%></td>
+    <td><%=as.character(tmp.stats$NaboveCrit[kk])%></td>
+    <td><%=format(tmp.stats$dte.start[kk],format="%Y-%m-%d %H:%M:%S")%></td>
+    <td><%=format(tmp.stats$dte.end[kk],format="%Y-%m-%d %H:%M:%S")%></td>
+  </tr><%}%>
+</table>
+</body>
+</html>

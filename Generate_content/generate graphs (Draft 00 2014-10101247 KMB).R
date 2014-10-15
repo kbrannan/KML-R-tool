@@ -28,7 +28,7 @@ for(ii in 1:length(chr.csv.file.names)) {
   ##
   ## create boxplot ggplot object
   p.boxplot <- ggplot(tmp.data) +
-    geom_boxplot(aes(site,value)) +
+    geom_boxplot(aes(site,value),outlier.size=0) +
     geom_jitter(data=tmp.data.above,aes(site,value),colour="red", size=6, pch=1) +
     geom_jitter(data=tmp.data.below,aes(site,value),colour="blue", size=3,pch=1) +
     geom_segment(aes(x=0,xend=2,y=158,yend=158),colour="red", size=1) +
@@ -37,7 +37,7 @@ for(ii in 1:length(chr.csv.file.names)) {
                   labels = trans_format("log10", math_format(10^.x)),
                   limits= c(10^0,10^4)) +
     scale_x_discrete(labels=NULL,breaks=NULL) +
-    ggtitle(paste(paste0("Location ID:",unique(tmp.data$site)),paste0("Data Source:",unique(tmp.data$data.source)),sep="  ")) + 
+    ggtitle(paste(paste0("Location ID: ",unique(tmp.data$site)),paste0("Data Source: ",unique(tmp.data$data.source)),sep="  ")) + 
     theme(legend.position="none",
           plot.margin=unit(c(0.5,0.5,0.5,0.5),"in"),
           text=element_text(size=14)) +

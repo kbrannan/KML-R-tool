@@ -24,6 +24,6 @@ df.data <-data.frame(df.data[,1:grep("value",names(df.data))-1], units="orgs/100
 ##
 ## write data files in csv format
 tmp.sites <- unique(df.data[,"site"])
-for(ii in 1:length(tmp.sites)) write.csv(df.data[grep(tmp.sites[ii],df.data[,"site"]),],file=paste0(chr.dir.csv.files,"/data_",tmp.sites[ii],".csv"),row.names=FALSE)
+for(ii in 1:length(tmp.sites)) write.csv(df.data[df.data[,"site"] == tmp.sites[ii],],file=paste0(chr.dir.csv.files,"/data_",tmp.sites[ii],".csv"),row.names=FALSE)
 
 ## done
