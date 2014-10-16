@@ -11,16 +11,57 @@ library(RColorBrewer)
 ## my-functions
 source("BEACON_functions.R")
 
-## folders
+## parameters
 tmp.stn.dir <- "//deqhq1/tmdl/TMDL_WR/MidCoast/GIS/BacteriaTMDL/Beaches/Layers"
 tmp.BEACON.dir <- "//deqhq1/tmdl/TMDL_WR/MidCoast/GIS/BacteriaTMDL/Beaches/EPA_BEACON"
 tmp.BEACON.shp.dir <- paste0(tmp.BEACON.dir,"/rad_beach_20140804_shp/rad_beach_20140804")
-
-
-## files
+chr.dir.csv.files <- "//deqhq1/tmdl/TMDL_WR/MidCoast/GIS/BacteriaTMDL/rscripts/KML-R-tool/Generate_content/csv_data_files"
+num.crit <- 158
 tmp.stn.csv <- "stn_loc.csv"
 tmp.BEACON.beach.ext.shp <- "rad_beach_l"
 tmp.BEACON.dbf <-"beach_attributes.dbf"
+
+
+##
+## get csv data information and set data types in files
+chr.csv.file.names <- list.files(path=chr.dir.csv.files, pattern="[0-9]\\.csv$",full.names=TRUE)
+col.classes <- c(rep("character",5),rep("numeric",3))
+## create df to hold stat and description info
+tmp.stats <- data.frame(site=rep(NA,length(chr.csv.file.names)),
+                        N=rep(NA,length(chr.csv.file.names)),
+                        NaboveCrit=rep(NA,length(chr.csv.file.names)),
+                        dte.start=as.POSIXct(rep(NA,length(chr.csv.file.names))),
+                        dte.end=as.POSIXct(rep(NA,length(chr.csv.file.names)))
+                        , stringsAsFactors=FALSE)
+## get site specific information
+for(jj in 1:length(chr.csv.file.names)) {
+  ## get data for sampling location from the csv file
+  ## this ensures the same data used in the plot is provided
+  tmp.data <- read.csv(file=chr.csv.file.names[jj], colClasses = col.classes)
+  ## convert date.time from character to POSIXct date-time class
+  tmp.data$date <- as.POSIXct(tmp.data$date.time)
+  ## all data
+  tmp.stats$site[jj] <- unique(tmp.data$site)
+  tmp.stats$N[jj] <- length(tmp.data$value)
+  tmp.stats$NaboveCrit[jj] <- length(tmp.data[tmp.data$value >= num.crit,"value"])
+  tmp.stats$dte.start[jj] <- as.POSIXct(min(tmp.data$date.time))
+  tmp.stats$dte.end[jj] <- as.POSIXct(max(tmp.data$date.time))
+  rm(tmp.data)
+  
+}
+## create links for each site
+tmp.links <- data.frame(boxplot.url=rep(NA,length(tmp.stats$site)),
+                        ts.url=rep(NA,length(tmp.stats$site)),
+                        desc.stat.url=rep(NA,length(tmp.stats$site)),
+                        data.file.csv.url=rep(NA,length(tmp.stats$site)),
+                        stringsAsFactors=FALSE
+                        )
+for(hh in 1:length(tmp.stats$site)) {
+  tmp.links$boxplot.url[hh] <- paste0("https://s3-us-west-2.amazonaws.com/midcoastbeaches/graph_files/location_",tmp.stats$site[hh],"_boxplot.png")
+  tmp.links$ts.url[hh] <- paste0("https://s3-us-west-2.amazonaws.com/midcoastbeaches/graph_files/location_",tmp.stats$site[hh],"_ts.png")
+  tmp.links$desc.stat.url[hh] <- paste0("https://s3-us-west-2.amazonaws.com/midcoastbeaches/desc_stat_html_files/desc_stat_",tmp.stats$site[hh],".html")
+  tmp.links$data.file.csv.url[hh] <- paste0("https://s3-us-west-2.amazonaws.com/midcoastbeaches/csv_files/data_",tmp.stats$site[hh],".csv")
+}
 
 ##
 ## get the sampling location data
@@ -95,44 +136,4 @@ if(length(ls(all = TRUE)) < 2) load(file=rdata)
 brew(file="./kml_templates/stn_placemark_brew.kmlt",output="stn_placemark_brew.kml")
 brew(file="./kml_templates/beach_line_brew.kmlt",output="beach_line_brew.kml")
 
-tmp.sp.BEACON.OR.mc.add.attr.GE@data$BEACH_NAME <- sapply(as.character(tmp.sp.BEACON.OR.mc.add.attr.GE@data$BEACH_NAME),simpleCap,USE.NAMES=FALSE)
-
-str(junk)
-junk[1]
-
-
-##
-## view compare orginial and snap sample locations
-plotKML(tmp.sp.stn.GE)
-plotKML(tmp.sp.stn.snap.GE)
-plotKML(tmp.sp.BEACON.OR.mc.GE)
-
-
-
-
-##
-## scratch space
-tmp.sp.BEACON.OR.mc.GE@lines[[1]]@Lines[[1]]@coords
-
-paste(tmp.sp.BEACON.OR.mc.GE@lines[[1]]@Lines[[1]]@coords[,1],tmp.sp.BEACON.OR.mc.GE@lines[[1]]@Lines[[1]]@coords[,2],"0",collapse=",")
-
-ii <- 5
-for(ii in 1:5) {
-  junk<-data.frame(x=tmp.sp.BEACON.OR.mc.GE@lines[[ii]]@Lines[[1]]@coords[,1],y=tmp.sp.BEACON.OR.mc.GE@lines[[ii]]@Lines[[1]]@coords[,2],z=0)
-  k <- " "
-  for(jj in 1:length(junk[,1])) k <- paste(k,paste(junk[jj,1:3],collapse=","),sep=",")
-  print(substr(k,3,nchar(k)))
-}
-
-
-
-paste(paste(junk[1,1:3],collapse=","),paste(junk[2,1:3],collapse=","),sep=",")
-
-paste(tmp.sp.BEACON.OR.mc.GE@lines[[ii]]@Lines[[1]]@coords[,1:2],"0",collapse=",")
-
-
-plotKML(tmp.sp.beach.ext.or.mc.KML)
-plotKML(tmp.sp.stn.on.ext.KML)
-## plot in google earth
-plotKML(tmp.sp.stn.on.beach.ext.KML)
-plotKML(tmp.sp.beach.ext.or.KML)
+## done
