@@ -10,7 +10,7 @@ chr.dir.csv.files <- "//deqhq1/tmdl/TMDL_WR/MidCoast/GIS/BacteriaTMDL/rscripts/K
 ##
 ## load data
 load(file=paste0(chr.dir.data,"/",chr.file.data))
-df.data <- df.data[df.data$date.time >= strptime("2000-01-01", format="%Y-%m-%d"), ]
+##df.data <- df.data[df.data$date.time >= strptime("2000-01-01", format="%Y-%m-%d"), ]
 
 ##
 ## drop previous grouping data

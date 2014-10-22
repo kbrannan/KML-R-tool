@@ -50,13 +50,15 @@ for(jj in 1:length(chr.csv.file.names)) {
   
 }
 ## create links for each site
-tmp.links <- data.frame(boxplot.url=rep(NA,length(tmp.stats$site)),
+tmp.links <- data.frame(source.form.url=rep(NA,length(tmp.stats$site)),
+                        boxplot.url=rep(NA,length(tmp.stats$site)),
                         ts.url=rep(NA,length(tmp.stats$site)),
                         desc.stat.url=rep(NA,length(tmp.stats$site)),
                         data.file.csv.url=rep(NA,length(tmp.stats$site)),
                         stringsAsFactors=FALSE
                         )
 for(hh in 1:length(tmp.stats$site)) {
+  tmp.links$source.form.url[hh] <- paste0("https://docs.google.com/forms/d/14SpokgJPY-VNxbR8rHG6gqluTNQrASwOHMQNaAaCPCs/viewform?entry.1786451981=",tmp.stats$site[hh],"&amp",";","entry.977364261")
   tmp.links$boxplot.url[hh] <- paste0("https://s3-us-west-2.amazonaws.com/midcoastbeaches/graph_files/location_",tmp.stats$site[hh],"_boxplot.png")
   tmp.links$ts.url[hh] <- paste0("https://s3-us-west-2.amazonaws.com/midcoastbeaches/graph_files/location_",tmp.stats$site[hh],"_ts.png")
   tmp.links$desc.stat.url[hh] <- paste0("https://s3-us-west-2.amazonaws.com/midcoastbeaches/desc_stat_html_files/desc_stat_",tmp.stats$site[hh],".html")
@@ -68,7 +70,7 @@ for(hh in 1:length(tmp.stats$site)) {
 tmp.stn.locs <- read.csv(paste0(tmp.stn.dir,"/",tmp.stn.csv))
 ## create and save stations shapefile
 tmp.sp.stn <- SpatialPointsDataFrame(coords=tmp.stn.locs[,c("lon","lat")], data=tmp.stn.locs[,c("site","data_sourc")], proj4string = CRS("+proj=longlat +datum=NAD83"))
-writeOGR(tmp.sp.stn, dsn=".", layer= "beach_stn_location", driver = "ESRI Shapefile")
+writeOGR(tmp.sp.stn, dsn=".", layer= "beach_stn_location", driver = "ESRI Shapefile", overwrite_layer=TRUE)
 ## clean up
 rm(tmp.stn.locs)
 

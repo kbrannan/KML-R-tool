@@ -62,7 +62,7 @@ p.links {
 <p><sup>*</sup>Criterion used Enterococcus 158 <sup>#</sup>/<sub>100 ml</sub></p>
 <h3> <u>Links</u></h3>
 <p class="links">Zoom to location (not working yet)</p>
-<p class="links">Source Assessment Form (not working yet)</p>
+<p class="links"><a href=$[source_form_url]>Source Assessment Form</a></p>
 <p class="links">Graphs of data (<a href=$[boxplot_url]>boxplot</a>, <a href=$[ts_url]>time-series plot</a>)</p>
 <p class="links"><a href=$[desc_stat_url]>Descrptive statistics Table</a></p>
 <p class="links"><a href=$[data_file_csv_url]>Data file (csv-format)</a></p>
@@ -110,6 +110,9 @@ p.links {
 <Data name="N_above">
 <value><%=as.character(tmp.stats$NaboveCrit[ii])%></value>
 </Data>
+<Data name = "source_form_url">
+<value>"<%=as.character(tmp.links$source.form.url[ii])%>"</value>
+</Data>
 <Data name="boxplot_url">
 <value>"<%=as.character(tmp.links$boxplot.url[ii])%>"</value>
 </Data>
@@ -117,10 +120,10 @@ p.links {
 <value>"<%=as.character(tmp.links$ts.url[ii])%>"</value>
 </Data>
 <Data name="desc_stat_url">
-<value>"<%=as.character(tmp.links$desc.stat.url[hh])%>"</value>
+<value>"<%=as.character(tmp.links$desc.stat.url[ii])%>"</value>
 </Data>
 <Data name="data_file_csv_url">
-<value>"<%=as.character(tmp.links$data.file.csv.url[hh])%>"</value>
+<value>"<%=as.character(tmp.links$data.file.csv.url[ii])%>"</value>
 </Data>
 </ExtendedData>
 					<Point>
