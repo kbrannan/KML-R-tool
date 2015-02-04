@@ -96,6 +96,14 @@ lineCoordsString <- function(cur.lines) {
   return(substr(k,3,nchar(k)))
 }
 
+multlinesCoordsString <- function(sp.Lines) {
+  tmp.Lines00 <- unlist(coordinates(sp.Lines), recursive=FALSE) # unlist to the first level each item is coordinates of a line
+  tmp.Lines01 <- do.call(rbind,tmp.Lines00) ## single matrix with all of the points of the lines
+  num.order <- order(-tmp.Lines01[,2]) ## north to south
+  tmp.Lines02 <- cbind(tmp.Lines01[num.order,],rep(0,length(tmp.Lines01[,1]))) ## add 0 for elevation (z)
+  return(paste(t(tmp.Lines02[,1:3]),collapse=",")) ## create strin that is the 3-tuples for each point of the line
+}
+
 simpleCap <- function(x) {
   s <- strsplit(x, " ")[[1]]
   return(paste(toupper(substring(s, 1, 1)), tolower(substring(s, 2)),sep = "", collapse = " "))

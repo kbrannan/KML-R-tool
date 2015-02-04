@@ -47,10 +47,10 @@ for(ii in 1:length(chr.csv.file.names)) {
       tmp.stats[tmp.stats$year == tmp.stats$year[jj],]$N <- length(tmp.data.year$value)
       tmp.stats[tmp.stats$year == tmp.stats$year[jj],]$max <- max(tmp.data.year$value)
       tmp.stats[tmp.stats$year == tmp.stats$year[jj],]$median <- median(tmp.data.year$value)
-      tmp.stats[tmp.stats$year == tmp.stats$year[jj],]$NaboveCrit <- length(tmp.data[tmp.data.year$value >= num.crit,"value"])
+      tmp.stats[tmp.stats$year == tmp.stats$year[jj],]$NaboveCrit <- length(tmp.data.year$value[tmp.data.year$value >= num.crit])
       tmp.stats[tmp.stats$year == tmp.stats$year[jj],]$dte.start <- as.POSIXct(min(tmp.data.year$date.time))
       tmp.stats[tmp.stats$year == tmp.stats$year[jj],]$dte.end <- as.POSIXct(max(tmp.data.year$date.time))
-      rm(tmp.data.year)
+      rm(tmp.data.year,jj)
     }
   
   }
