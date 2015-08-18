@@ -113,6 +113,7 @@ tmp.df.dist.stn.beach.line <- lineardistance.kmb.sp(tmp.sp.stn,tmp.sp.BEACON.OR.
 ##
 ## snap sample location to beach extents
 tmp.sp.stn.snap <- snapPointsToLine.sp.kmb(tmp.sp.stn,tmp.sp.BEACON.OR.mc.add.attr,maxDist=NA)
+writeOGR(tmp.sp.stn.snap, dsn=".", layer= "beach_stn_location_snapped_to_beach", driver = "ESRI Shapefile", overwrite_layer=TRUE)
 ##
 ##
 ## tranform to CRS used by Google Earth ("+init=epsg:4326")

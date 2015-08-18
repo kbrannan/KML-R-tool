@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+##<<<<<<< HEAD
 dwnldUnzpBEACON.kmb.sp <- function(dir.sp = "//deqhq1/tmdl/TMDL_WR/MidCoast/GIS/BacteriaTMDL/Beaches/EPA_BEACON") {
   ## get spatial data from EPS beach monitoring site BEACON
   ## http://watersgeo.epa.gov/beacon2/about.html
@@ -110,9 +110,9 @@ simpleCap <- function(x) {
   return(paste(toupper(substring(s, 1, 1)), tolower(substring(s, 2)),sep = "", collapse = " "))
   
 }
-=======
-getBEACONsp <- function(dir.sp = ) {
+##=======
+getBEACONsp <- function(dir.sp = NULL) {
   library(RCurl)
 }
   
->>>>>>> 95cc3a7ed720fc0caf44b628a85c2ee04e60ccc4
+##>>>>>>> 95cc3a7ed720fc0caf44b628a85c2ee04e60ccc4
